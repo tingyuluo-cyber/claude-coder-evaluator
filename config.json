@@ -1,0 +1,23 @@
+{
+  "max_review_cycles": 3,
+  "require_tests": true,
+  "evaluation_strictness": "medium",
+  "auto_fix_minor_issues": false,
+  "strictness_levels": {
+    "low": {
+      "max_cycles": 5,
+      "require_tests": false,
+      "allow_minor_issues": true
+    },
+    "medium": {
+      "max_cycles": 3,
+      "require_tests": true,
+      "allow_minor_issues": false
+    },
+    "high": {
+      "max_cycles": 2,
+      "require_tests": true,
+      "allow_minor_issues": false
+    }
+  }
+}
