@@ -19,5 +19,62 @@
       "require_tests": true,
       "allow_minor_issues": false
     }
+  },
+  "master_permissions": {
+    "level": "strict",
+    "can_skip_cycles": false,
+    "can_modify_files": false,
+    "can_override_evaluator": false,
+    "require_approval_for_skip": true,
+    "require_approval_for_override": true,
+    "audit_all_operations": true,
+    "allowed_write_paths": [
+      "logs/",
+      "task.md",
+      "config.json",
+      "outputs/completion-report.md"
+    ],
+    "denied_write_paths": [
+      "outputs/checklist.md",
+      "outputs/evaluation.md",
+      "outputs/implementation-*.md",
+      "outputs/modification-*.md"
+    ]
+  },
+  "permission_levels": {
+    "strict": {
+      "description": "严格模式：Master 只能协调，不能执行任何业务操作",
+      "can_skip_cycles": false,
+      "can_modify_files": false,
+      "can_override_evaluator": false,
+      "require_approval_for_skip": false,
+      "require_approval_for_override": false,
+      "audit_all_operations": true
+    },
+    "moderate": {
+      "description": "中等模式：Master 可以跳过循环或覆盖评估，但需要用户确认",
+      "can_skip_cycles": true,
+      "can_modify_files": false,
+      "can_override_evaluator": true,
+      "require_approval_for_skip": true,
+      "require_approval_for_override": true,
+      "audit_all_operations": true
+    },
+    "flexible": {
+      "description": "灵活模式：Master 可以执行任何操作，但需要记录审计日志",
+      "can_skip_cycles": true,
+      "can_modify_files": true,
+      "can_override_evaluator": true,
+      "require_approval_for_skip": false,
+      "require_approval_for_override": false,
+      "audit_all_operations": true
+    }
+  },
+  "audit": {
+    "enabled": true,
+    "log_file": "logs/audit.jsonl",
+    "log_permission_checks": true,
+    "log_permission_violations": true,
+    "log_user_approvals": true
   }
 }
