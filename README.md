@@ -65,18 +65,18 @@
 
 ```
 coder-evaluator-loop/
-├── SKILL.md                    # 主文件：核心指令
-├── README.md                   # 本文件：快速概览
+├── SKILL.md                    # 主文件：核心指令 (< 8 KB)
+├── README.md                   # 本文件：快速概览 (< 6 KB)
 ├── CHANGELOG.md                # 版本历史
 ├── config.json                 # 配置文件
 ├── agents/                     # Agent 指令
-│   ├── master.md
-│   ├── coder.md
-│   └── evaluator.md
+│   ├── master.md               # Master 协调器 (< 5 KB)
+│   ├── coder.md                # Coder agent
+│   └── evaluator.md            # Evaluator agent
 ├── references/                 # 详细文档
-│   ├── permission_rules.md
-│   ├── workflow_logic.md
-│   └── review_checklist.md
+│   ├── permission_rules.md     # 权限规则详解
+│   ├── workflow_logic.md       # 工作流逻辑详解
+│   └── review_checklist.md     # 审查清单
 ├── templates/                  # 报告模板
 └── examples/                   # 使用示例
 ```
@@ -88,12 +88,29 @@ coder-evaluator-loop/
   "max_review_cycles": 3,
   "require_tests": true,
   "evaluation_strictness": "medium",
+  "auto_fix_minor_issues": false,
+  "strictness_levels": {
+    "low": { "max_cycles": 5, "require_tests": false, "allow_minor_issues": true },
+    "medium": { "max_cycles": 3, "require_tests": true, "allow_minor_issues": false },
+    "high": { "max_cycles": 2, "require_tests": true, "allow_minor_issues": false }
+  },
   "master_permissions": {
     "level": "strict",
     "can_skip_cycles": false,
     "can_modify_files": false,
     "can_override_evaluator": false,
-    "audit_all_operations": true
+    "require_approval_for_skip": true,
+    "require_approval_for_override": true,
+    "audit_all_operations": true,
+    "allowed_write_paths": ["logs/", "task.md", "config.json", "outputs/completion-report.md"],
+    "denied_write_paths": ["outputs/checklist.md", "outputs/evaluation.md", "outputs/implementation-*.md"]
+  },
+  "audit": {
+    "enabled": true,
+    "log_file": "logs/audit.jsonl",
+    "log_permission_checks": true,
+    "log_permission_violations": true,
+    "log_user_approvals": true
   }
 }
 ```
@@ -138,22 +155,29 @@ dev-tasks/
 **快速了解：**
 - 本文件（README.md）- 快速概览
 
-**详细文档：**
-- `SKILL.md` - 核心指令
-- `references/permission_rules.md` - 权限规则
-- `references/workflow_logic.md` - 工作流逻辑
+**核心指令：**
+- `SKILL.md` - 核心指令（精简版）
 
 **Agent 指令：**
-- `agents/master.md` - Master 协调器
+- `agents/master.md` - Master 协调器（精简版）
 - `agents/coder.md` - Coder agent
 - `agents/evaluator.md` - Evaluator agent
+
+**详细参考：**
+- `references/permission_rules.md` - 权限规则详解
+- `references/workflow_logic.md` - 工作流逻辑详解
+- `references/review_checklist.md` - 审查清单
 
 **版本历史：**
 - `CHANGELOG.md` - 版本历史和未来规划
 
 ## 更新日志
 
-- **v2.2**: 精简优化，文件分层架构
+- **v2.2**: 精简优化，文件分层架构（渐进式加载）
+  - master.md 精简（19.3KB → < 5KB）
+  - SKILL.md 精简（14.7KB → < 8KB）
+  - README.md 精简（14.6KB → < 6KB）
+  - 新增权限规则和工作流逻辑参考文档
 - **v2.1**: 新增严格的权限控制机制
 - **v2.0**: 从角色切换模式升级为真正的多 agent 协作
 - **v1.0**: 初始版本，基于角色切换模式

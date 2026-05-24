@@ -4,7 +4,7 @@
 
 ### 已完成版本
 
-#### v1.0 - 角色切换模式（2023-12-01）
+#### v1.0 - 角色切换模式
 **核心特性：**
 - 单 agent 角色切换
 - 同一个 LLM 扮演 Coder 和 Evaluator
@@ -27,7 +27,7 @@ coder-evaluator-loop/
 
 ---
 
-#### v2.0 - 真正的多 Agent 协作（2024-01-01）
+#### v2.0 - 真正的多 Agent 协作
 **核心特性：**
 - 三个独立 agent 实例（Master + Coder + Evaluator）
 - 完全隔离的上下文
@@ -62,7 +62,7 @@ coder-evaluator-loop/
 
 ---
 
-#### v2.1 - 权限控制机制（2024-01-02）
+#### v2.1 - 权限控制机制
 **核心特性：**
 - 严格的权限边界（strict/moderate/flexible）
 - 审计日志（logs/audit.jsonl）
@@ -97,7 +97,7 @@ coder-evaluator-loop/
 
 ---
 
-#### v2.2 - 精简优化（2024-01-03）
+#### v2.2 - 精简优化
 **核心特性：**
 - 文件分层架构（渐进式加载）
 - 精简 agents/ 指令文件
